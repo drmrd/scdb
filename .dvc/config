@@ -1,0 +1,7 @@
+[core]
+    analytics = false
+    remote = gdrive-hdws-scotus-swings
+['remote "gdrive-hdws-scotus-swings"']
+    url = gdrive://13XEdmliGv863vWbcYvwZyijIlQdxxv3P
+['remote "dagshub"']
+    url = https://dagshub.com/drmrd/scdb.dvc

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "scdb-py"
+version = "0.1.0"
+description = "The Supreme Court Database (supremecourtdatabase.org) in Python-friendly formats."
+authors = ["Dan Moore"]
+license = "BSD-3-Clause"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pandas = "^1.1.3"
+pyreadstat = "^1.0.0"
+GitPython = "^3.1.11"
+pyarrow = "^3.0.0"
+requests = "^2.25.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

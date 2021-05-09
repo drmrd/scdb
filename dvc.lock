@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  acquire:
+    cmd: poetry run python data_pipeline/acquire.py
+    outs:
+    - path: data/raw/scdb/SCDB_2020_01_caseCentered_Citation.sav
+      md5: ea700e314adde0314dfc60c4a906c9fd
+      size: 3450821
+    - path: data/raw/scdb/SCDB_2020_01_caseCentered_Docket.sav
+      md5: 31465322753998e4716d08bad7f8f503
+      size: 4002733
+    - path: data/raw/scdb/SCDB_2020_01_caseCentered_LegalProvision.sav
+      md5: 34ec3d115fe0c71fd07154fd8a355f17
+      size: 5158949
+    - path: data/raw/scdb/SCDB_2020_01_caseCentered_Vote.sav
+      md5: b632599e12cb084d98d4e1e84143751f
+      size: 5187525
+    - path: data/raw/scdb/SCDB_2020_01_justiceCentered_Citation.sav
+      md5: 4e3088414e57a0b0deff9a36118227e0
+      size: 31942694
+    - path: data/raw/scdb/SCDB_2020_01_justiceCentered_Docket.sav
+      md5: 0f02d4f81dc2b2fbfc554f76fe68c55f
+      size: 37166310
+    - path: data/raw/scdb/SCDB_2020_01_justiceCentered_LegalProvision.sav
+      md5: 3bbf426277c6085322866eb1e6963fa6
+      size: 48109310
+    - path: data/raw/scdb/SCDB_2020_01_justiceCentered_Vote.sav
+      md5: afb49ece0442e76e7263e86d5a20f895
+      size: 48380710
+    - path: data/raw/scdb/SCDB_Legacy_06_caseCentered_Citation.sav
+      md5: 9e9de99270b821a2bcb4930e05525e0d
+      size: 23734325
+    - path: data/raw/scdb/SCDB_Legacy_06_justiceCentered_Citation.sav
+      md5: f11a09e542af5229b6b58ff171dfc8c1
+      size: 208475334
+  featherize:
+    cmd: poetry run python data_pipeline/featherize.py
+    deps:
+    - path: data/raw/scdb
+      md5: 67562642385ee7e497792ccfa6f77359.dir
+      size: 415608711
+      nfiles: 10
+    outs:
+    - path: data/interim/scdb
+      md5: 64584117b895ba69946e5aa5c0ea014f.dir
+      size: 53593868
+      nfiles: 10
+  wrangle:
+    cmd: poetry run python data_pipeline/wrangle.py
+    deps:
+    - path: data/interim/scdb
+      md5: 64584117b895ba69946e5aa5c0ea014f.dir
+      size: 53593868
+      nfiles: 10
+    outs:
+    - path: data/processed/scdb/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
+      md5: bc0ea7ebc146d87de643b183721e22dc
+      size: 6615962
