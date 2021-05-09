@@ -1,6 +1,6 @@
 [core]
     analytics = false
-    remote = gdrive-hdws-scotus-swings
+    remote = dagshub
 ['remote "gdrive-hdws-scotus-swings"']
     url = gdrive://13XEdmliGv863vWbcYvwZyijIlQdxxv3P
 ['remote "dagshub"']
