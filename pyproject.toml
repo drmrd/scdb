@@ -14,6 +14,10 @@ pyarrow = "^3.0.0"
 requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
+yapf = "^0.31.0"
+autoflake = "^1.4"
+importmagic = "^0.1.7"
+epc = "^0.0.5"
 
 [build-system]
 requires = ["poetry>=0.12"]
