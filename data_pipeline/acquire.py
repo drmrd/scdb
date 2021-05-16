@@ -62,7 +62,6 @@ def acquire_scdb_dataset(scdb_version, dataset_version, destination):
 
     if not destination_file_path.exists():
         destination_file_path.parent.mkdir(parents=True, exist_ok=True)
-        print(destination_file_path)
         download_and_extract_zip(url, destination_file_path.parent)
 
 

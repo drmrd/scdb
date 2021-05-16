@@ -2,35 +2,35 @@ stages:
   acquire:
     cmd: poetry run python data_pipeline/acquire.py
     outs:
-    - data/raw/scdb/2020_01/caseCentered_Citation.sav:
+    - data/raw/2020_01/SCDB_2020_01_caseCentered_Citation.sav:
         persist: true
-    - data/raw/scdb/2020_01/caseCentered_Docket.sav:
+    - data/raw/2020_01/SCDB_2020_01_caseCentered_Docket.sav:
         persist: true
-    - data/raw/scdb/2020_01/caseCentered_LegalProvision.sav:
+    - data/raw/2020_01/SCDB_2020_01_caseCentered_LegalProvision.sav:
         persist: true
-    - data/raw/scdb/2020_01/caseCentered_Vote.sav:
+    - data/raw/2020_01/SCDB_2020_01_caseCentered_Vote.sav:
         persist: true
-    - data/raw/scdb/2020_01/justiceCentered_Citation.sav:
+    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Citation.sav:
         persist: true
-    - data/raw/scdb/2020_01/justiceCentered_Docket.sav:
+    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Docket.sav:
         persist: true
-    - data/raw/scdb/2020_01/justiceCentered_LegalProvision.sav:
+    - data/raw/2020_01/SCDB_2020_01_justiceCentered_LegalProvision.sav:
         persist: true
-    - data/raw/scdb/2020_01/justiceCentered_Vote.sav:
+    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Vote.sav:
         persist: true
-    - data/raw/scdb/Legacy_06/caseCentered_Citation.sav:
+    - data/raw/Legacy_06/SCDB_Legacy_06_caseCentered_Citation.sav:
         persist: true
-    - data/raw/scdb/Legacy_06/justiceCentered_Citation.sav:
+    - data/raw/Legacy_06/SCDB_Legacy_06_justiceCentered_Citation.sav:
         persist: true
   featherize:
     cmd: poetry run python data_pipeline/featherize.py
     deps:
-    - data/raw/scdb
+    - data/raw/
     outs:
-    - data/interim/scdb
+    - data/feathers/
   wrangle:
     cmd: poetry run python data_pipeline/wrangle.py
     deps:
-    - data/interim/scdb
+    - data/feathers/
     outs:
-    - data/processed/scdb/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
+    - data/processed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
