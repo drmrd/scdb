@@ -3,14 +3,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from data_pipeline.acquire import acquire_scdb_datasets
+from data_pipeline.acquire import acquire_scdb_datasets, SCDB_DATASET_URL_TEMPLATE
 
-
-SCDB_DATASET_URL_TEMPLATE = ''.join([
-    'http://supremecourtdatabase.org/_brickFiles/{scdb_version}/',
-    'SCDB_{scdb_version}_{unit_of_analysis}Centered_{record_granularity}',
-    '{file_extension}'
-])
 
 DESIRED_DATASET_URLS = [
     SCDB_DATASET_URL_TEMPLATE.format(
