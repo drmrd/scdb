@@ -7,13 +7,13 @@ import pyreadstat
 from tqdm.auto import tqdm
 
 
-REPO_ROOT = Path(git.Repo('.', search_parent_directories=True).working_tree_dir).absolute()
-DATA_PATH = REPO_ROOT / 'data'
+_REPO_ROOT = Path(git.Repo('.', search_parent_directories=True).working_tree_dir).absolute()
+_DATA_PATH = _REPO_ROOT / 'data'
 
 
 def featherize_scdb_datasets():
-    sav_files_dir = DATA_PATH / 'raw' / 'scdb'
-    interim_data_dir = DATA_PATH / 'interim' / 'scdb'
+    sav_files_dir = _DATA_PATH / 'raw' / 'scdb'
+    interim_data_dir = _DATA_PATH / 'interim' / 'scdb'
     interim_data_dir.mkdir(parents=True, exist_ok=True)
 
     for scdb_sav_path in tqdm(list(sav_files_dir.glob('*.sav')), disable=None):
