@@ -22,15 +22,24 @@ stages:
         persist: true
     - data/raw/Legacy_06/SCDB_Legacy_06_justiceCentered_Citation.sav:
         persist: true
+
   featherize:
     cmd: poetry run python data_pipeline/featherize.py
     deps:
     - data/raw/
     outs:
-    - data/feathers/
-  wrangle:
-    cmd: poetry run python data_pipeline/wrangle.py
+    - data/feather/
+
+  parquet_like_its_hot:
+    cmd: poetry run python data_pipeline/parquet_like_its_hot.py
     deps:
-    - data/feathers/
+      - data/feather/
     outs:
-    - data/processed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
+      - data/parquet/
+
+  preprocess:
+    cmd: poetry run python data_pipeline/preprocess.py
+    deps:
+    - data/feather/
+    outs:
+    - data/preprocessed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather

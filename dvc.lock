@@ -37,11 +37,11 @@ stages:
     cmd: poetry run python data_pipeline/featherize.py
     deps:
     - path: data/raw/
-      md5: 58e2abf09a5d705e607ad04dd716ff26.dir
-      size: 415608731
-      nfiles: 11
+      md5: 537a9ef11225104b4466954553373ac8.dir
+      size: 415609130
+      nfiles: 12
     outs:
-    - path: data/feathers/
+    - path: data/feather/
       md5: 90cbc35ca253e92a1a5067a2f4ba3457.dir
       size: 54193908
       nfiles: 10
@@ -56,3 +56,26 @@ stages:
     - path: data/processed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
       md5: fb087221254abb137ce514934578e30e
       size: 5990274
+  preprocess:
+    cmd: poetry run python data_pipeline/preprocess.py
+    deps:
+    - path: data/feather/
+      md5: 90cbc35ca253e92a1a5067a2f4ba3457.dir
+      size: 54193908
+      nfiles: 10
+    outs:
+    - path: data/preprocessed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
+      md5: fb087221254abb137ce514934578e30e
+      size: 5990274
+  parquet_like_its_hot:
+    cmd: poetry run python data_pipeline/parquet_like_its_hot.py
+    deps:
+    - path: data/feather/
+      md5: 90cbc35ca253e92a1a5067a2f4ba3457.dir
+      size: 54193908
+      nfiles: 10
+    outs:
+    - path: data/parquet/
+      md5: 9bfbb0e1e449267803051d5c439693b0.dir
+      size: 18746427
+      nfiles: 10

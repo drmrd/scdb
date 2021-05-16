@@ -8,6 +8,8 @@ from typing import List
 import git
 import requests
 
+from tqdm.auto import tqdm
+
 SCDB_DATASET_URL_TEMPLATE = ''.join([
     'http://supremecourtdatabase.org/_brickFiles/{scdb_version}/',
     'SCDB_{scdb_version}_{unit_of_analysis}Centered_{record_granularity}',
@@ -27,7 +29,7 @@ def acquire_all_scdb_datasets_by_version(
     legacy_versions = [version for version in scdb_versions if version.startswith('Legacy')]
     modern_versions = list(set(scdb_versions) - set(legacy_versions))
 
-    for legacy_version in legacy_versions:
+    for legacy_version in tqdm(legacy_versions, disable=True if len(legacy_versions) < 2 else None, leave=False, unit='Version'):
         acquire_scdb_datasets(
             scdb_version=legacy_version,
             units_of_analysis=['case', 'justice'],
@@ -35,7 +37,7 @@ def acquire_all_scdb_datasets_by_version(
             destination=destination / legacy_version
         )
 
-    for modern_version in modern_versions:
+    for modern_version in tqdm(modern_versions, disable=True if len(modern_versions) < 2 else None, leave=False, unit='Version'):
         acquire_scdb_datasets(
             scdb_version=modern_version,
             units_of_analysis=['case', 'justice'],
@@ -45,8 +47,8 @@ def acquire_all_scdb_datasets_by_version(
 
 
 def acquire_scdb_datasets(scdb_version, units_of_analysis, record_granularities, destination):
-    for unit_of_analysis in units_of_analysis:
-        for record_granularity in record_granularities:
+    for unit_of_analysis in tqdm(units_of_analysis, disable=None, leave=False, unit='Unit of Analysis'):
+        for record_granularity in tqdm(record_granularities, disable=None, leave=False, unit='Record Granularity'):
             acquire_scdb_dataset(
                 scdb_version=scdb_version,
                 dataset_version=f'{unit_of_analysis}Centered_{record_granularity}',

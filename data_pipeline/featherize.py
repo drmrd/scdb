@@ -12,10 +12,10 @@ _DATA_PATH = _REPO_ROOT / 'data'
 
 
 def featherize_scdb_datasets(sav_files_dir: Path = _DATA_PATH / 'raw',
-                             feather_data_dir: Path = _DATA_PATH / 'feathers'):
+                             feather_data_dir: Path = _DATA_PATH / 'feather'):
     feather_data_dir.mkdir(parents=True, exist_ok=True)
 
-    for scdb_sav_path in tqdm(list(sav_files_dir.glob('**/*.sav')), disable=None):
+    for scdb_sav_path in tqdm(list(sav_files_dir.glob('**/*.sav')), disable=None, leave=False, unit='SPSS File'):
         scdb_feather_path = feather_data_dir / scdb_sav_path.parent.stem / f'{scdb_sav_path.stem}.feather'
         scdb_feather_path.parent.mkdir(exist_ok=True)
         scdb_dataset = scdb_sav_to_dataframe(scdb_sav_path)
