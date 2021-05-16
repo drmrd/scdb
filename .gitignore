@@ -3,3 +3,4 @@ secrets
 .vscode/
 .idea/
 *.code-workspace
+**/__pycache__
