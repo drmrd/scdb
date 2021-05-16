@@ -32,8 +32,7 @@ def featherize_scdb_datasets():
 
 def scdb_sav_to_dataframe(scdb_sav_path):
     try:
-        dataset = pd.read_spss(str(scdb_sav_path))  # <-- str(…) due to a bug in pandas before v1.1.3
-                                                    # see https://github.com/pandas-dev/pandas/pull/36174
+        dataset = pd.read_spss(scdb_sav_path)
     except Exception:
         dataset, _ = pyreadstat.read_sav(
             str(scdb_sav_path),
