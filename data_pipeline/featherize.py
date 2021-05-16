@@ -4,7 +4,7 @@ from pathlib import Path
 import git
 import pandas as pd
 import pyreadstat
-import requests
+from tqdm.auto import tqdm
 
 
 REPO_ROOT = Path(git.Repo('.', search_parent_directories=True).working_tree_dir).absolute()
@@ -16,7 +16,7 @@ def featherize_scdb_datasets():
     interim_data_dir = DATA_PATH / 'interim' / 'scdb'
     interim_data_dir.mkdir(parents=True, exist_ok=True)
 
-    for scdb_sav_path in sav_files_dir.glob('*.sav'):
+    for scdb_sav_path in tqdm(list(sav_files_dir.glob('*.sav')), disable=None):
         scdb_feather_path = interim_data_dir / f'{scdb_sav_path.stem}.feather'
         scdb_dataset = scdb_sav_to_dataframe(scdb_sav_path)
         categorical_columns = scdb_dataset.select_dtypes(include='category').columns

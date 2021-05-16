@@ -12,6 +12,7 @@ pyreadstat = "^1.0.0"
 GitPython = "^3.1.11"
 pyarrow = "^4.0.0"
 requests = "^2.25.1"
+tqdm = "^4.60.0"
 
 [tool.poetry.dev-dependencies]
 yapf = "^0.31.0"
