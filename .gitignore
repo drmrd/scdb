@@ -1,4 +1,5 @@
-.altair_data
 .DS_Store
-**/.ipynb_checkpoints
 secrets
+.vscode/
+.idea/
+*.code-workspace

@@ -1,5 +1,5 @@
 import zipfile
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -64,3 +64,10 @@ def test_attempts_to_unzip_all_downloaded_files(monkeypatch, tmp_path):
         requested_file_names.append(zip_file.read().decode('utf-8'))
 
     assert sorted(requested_file_names) == sorted(DESIRED_FILE_NAMES)
+
+
+@patch('pathlib.Path.exists', lambda *_, **__: True)
+def test_does_not_request_datasets_that_have_already_been_downloaded(tmp_path, responses):
+    responses.reset()
+
+    acquire_scdb_datasets(tmp_path)

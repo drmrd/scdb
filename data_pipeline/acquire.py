@@ -8,7 +8,8 @@ import git
 import requests
 
 REPO_ROOT = Path(
-    git.Repo('.', search_parent_directories=True).working_tree_dir).absolute()
+    git.Repo('.', search_parent_directories=True).working_tree_dir
+).absolute()
 DATA_PATH = REPO_ROOT / 'data'
 
 
