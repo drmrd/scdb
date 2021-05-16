@@ -9,13 +9,11 @@ REPO_ROOT = Path(git.Repo('.', search_parent_directories=True).working_tree_dir)
 DATA_PATH = REPO_ROOT / 'data'
 
 
-def wrangle_scdb_data():
-    interim_data_dir = DATA_PATH / 'interim' / 'scdb'
-    processed_data_dir = DATA_PATH / 'processed' / 'scdb'
-    processed_data_dir.mkdir(parents=True, exist_ok=True)
+def wrangle_scdb_data(feathers_dir: Path = DATA_PATH / 'feathers', processed_dir: Path = DATA_PATH / 'processed'):
+    processed_dir.mkdir(parents=True, exist_ok=True)
     scdb_datasets = {
         'SCDB_Legacy-and-2020r1_caseCentered_Citation': pd.concat(
-            [pd.read_feather(interim_data_dir / f'SCDB_{scdb_version}_caseCentered_Citation.feather')
+            [pd.read_feather(feathers_dir / scdb_version / f'SCDB_{scdb_version}_caseCentered_Citation.feather')
              for scdb_version in ['Legacy_06', '2020_01']],
             ignore_index=True
         )
@@ -42,7 +40,7 @@ def wrangle_scdb_data():
                       lawSupp='Infrequent litigate (Code)',
                       lawMinor='28 U.S.C. § 2201')
                 .pipe(set_dtypes)
-                .to_feather(processed_data_dir / f'{dataset_name}.feather')
+                .to_feather(processed_dir / f'{dataset_name}.feather')
         )
 
 
