@@ -23,7 +23,10 @@ They should differ from expectations only in that
    the description `'MISSING_VALUE'`.
 3. Variable data types are converted to accurate and more-or-less optimal (in
    terms of storage space) data types. This includes using the experimental
-   `pd.StringDtype` from pandas.
+   `pd.StringDtype` from pandas. As a result of this and, mostly, general
+   advantages  of these file formats, the largest feather and parquet files we
+   create here are 6.5 MB and 3.4 MB, respectively, roughly 1.7% and 6.5% the
+   size of the largest `.sav` file from which we imported.
 
 ## Available Files
 - **[`data/raw`](data/raw)** contains the officially-released SPSS files from
