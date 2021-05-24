@@ -2,44 +2,54 @@ stages:
   acquire:
     cmd: poetry run python data_pipeline/acquire.py
     outs:
-    - data/raw/2020_01/SCDB_2020_01_caseCentered_Citation.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_caseCentered_Docket.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_caseCentered_LegalProvision.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_caseCentered_Vote.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Citation.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Docket.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_justiceCentered_LegalProvision.sav:
-        persist: true
-    - data/raw/2020_01/SCDB_2020_01_justiceCentered_Vote.sav:
-        persist: true
-    - data/raw/Legacy_06/SCDB_Legacy_06_caseCentered_Citation.sav:
-        persist: true
-    - data/raw/Legacy_06/SCDB_Legacy_06_justiceCentered_Citation.sav:
-        persist: true
+      - data/raw/2020_01/SCDB_2020_01_caseCentered_Citation.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_caseCentered_Docket.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_caseCentered_LegalProvision.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_caseCentered_Vote.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_justiceCentered_Citation.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_justiceCentered_Docket.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_justiceCentered_LegalProvision.sav:
+          persist: true
+      - data/raw/2020_01/SCDB_2020_01_justiceCentered_Vote.sav:
+          persist: true
+      - data/raw/Legacy_06/SCDB_Legacy_06_caseCentered_Citation.sav:
+          persist: true
+      - data/raw/Legacy_06/SCDB_Legacy_06_justiceCentered_Citation.sav:
+          persist: true
 
   featherize:
     cmd: poetry run python data_pipeline/featherize.py
     deps:
-    - data/raw/
+      - data/raw/
     outs:
-    - data/feather/
+      - data/feather/:
+          desc: >-
+            The official release datasets converted into feathers with minimal
+            changes.
 
   parquet_like_its_hot:
     cmd: poetry run python data_pipeline/parquet_like_its_hot.py
     deps:
       - data/feather/
     outs:
-      - data/parquet/
+      - data/parquet/:
+          desc: >-
+            The official release datasets converted into parquet files with
+            minimal changes.
 
   preprocess:
     cmd: poetry run python data_pipeline/preprocess.py
     deps:
-    - data/feather/
+      - data/feather/
     outs:
-    - data/preprocessed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
+      - data/preprocessed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather:
+          desc: >-
+            The most recent case-centered, citation-level legacy and modern
+            datasets combined into a single feather with additional imputed
+            values, manual error corrections, cleaned up labels.

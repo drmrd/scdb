@@ -65,8 +65,8 @@ stages:
       nfiles: 10
     outs:
     - path: data/preprocessed/SCDB_Legacy-and-2020r1_caseCentered_Citation.feather
-      md5: fb087221254abb137ce514934578e30e
-      size: 5990274
+      md5: 5e214a84e6fad6718046feb895405bd4
+      size: 6014514
   parquet_like_its_hot:
     cmd: poetry run python data_pipeline/parquet_like_its_hot.py
     deps:

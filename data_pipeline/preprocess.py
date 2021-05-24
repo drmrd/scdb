@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import datetime as dt
+import functools
 from pathlib import Path
 
 import git
@@ -62,8 +63,11 @@ def set_dtypes(scdb_df):
         'minVotes': 'uint8'
     }).assign(
         **{
-            date_column_name: lambda df: df[date_column_name].map(
-                gregorian_epoch_time_to_datetime64, na_action='ignore'
+            date_column_name: functools.partial(
+                lambda df, column_name: df[column_name].map(
+                    gregorian_epoch_time_to_datetime64, na_action='ignore'
+                ),
+                column_name=date_column_name
             )
             for date_column_name in ['dateArgument', 'dateRearg', 'dateDecision']
         }
